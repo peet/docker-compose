@@ -126,6 +126,41 @@ const stop = function (options) {
  * @param {?(string|string[])} [options.config]
  * @param {?object} [options.env]
  */
+const restartAll = function (options) {
+  return execCompose('restart', [], options);
+};
+
+/**
+ * @param {string[]} services list of service names
+ * @param {object} options
+ * @param {string} options.cwd
+ * @param {boolean} [options.log]
+ * @param {?(string|string[])} [options.config]
+ * @param {?object} [options.env]
+ */
+const restartMany = function (services, options) {
+  return execCompose('restart', services, options);
+};
+
+/**
+ * @param {string} service service name
+ * @param {object} options
+ * @param {string} options.cwd
+ * @param {boolean} [options.log]
+ * @param {?(string|string[])} [options.config]
+ * @param {?object} [options.env]
+ */
+const restartOne = function (service, options) {
+  return execCompose('restart', [ service ], options);
+};
+
+/**
+ * @param {object} options
+ * @param {string} options.cwd
+ * @param {boolean} [options.log]
+ * @param {?(string|string[])} [options.config]
+ * @param {?object} [options.env]
+ */
 const kill = function (options) {
   return execCompose('kill', [], options);
 };
@@ -221,4 +256,4 @@ const buildOne = function (service, options) {
   return execCompose('build', [ service ], options);
 };
 
-module.exports = { upAll, upMany, upOne, kill, down, stop, rm, exec, run, buildAll, buildMany, buildOne };
+module.exports = { upAll, upMany, upOne, kill, down, stop, restartAll, restartMany, restartOne, rm, exec, run, buildAll, buildMany, buildOne };

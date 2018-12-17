@@ -79,6 +79,14 @@ test('ensure container gets down', async assert => {
   assert.end();
 });
 
+test('ensure container gets restarted', async assert => {
+  await compose.upAll({ cwd: path.join(__dirname), log: true });
+  await compose.restartOne('mongodb', { cwd: path.join(__dirname), log: true });
+
+  assert.true(await isContainerRunning('/compose_test_mongodb'));
+  assert.end();
+});
+
 test('ensure container gets stopped', async assert => {
   await compose.upAll({ cwd: path.join(__dirname), log: true });
   await compose.stop({ cwd: path.join(__dirname), log: true });
@@ -103,7 +111,7 @@ test('ensure custom ymls are working', async assert => {
   await compose.upAll({ cwd, log, config });
   assert.true(await isContainerRunning('/compose_test_mongodb_2'));
 
-   // config & [config] are the same thing, ensures that multiple configs are handled properly
+  // config & [config] are the same thing, ensures that multiple configs are handled properly
   await compose.kill({ cwd, log, config: [ config ]});
   assert.false(await isContainerRunning('/compose_test_mongodb_2'));
   assert.end();
