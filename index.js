@@ -256,4 +256,48 @@ const buildOne = function (service, options) {
   return execCompose('build', [ service ], options);
 };
 
-module.exports = { upAll, upMany, upOne, kill, down, stop, restartAll, restartMany, restartOne, rm, exec, run, buildAll, buildMany, buildOne };
+/**
+ * Logs command
+ * @param {object} options
+ * @param {string} options.cwd
+ * @param {boolean} [options.log]
+ * @param {?(string|string[])} [options.config]
+ * @param {?object} [options.env]
+ *
+ * @return {object} std.out / std.err
+ */
+const logsAll = function (options) {
+  return execCompose('logs', options.args || [], options);
+};
+
+/**
+ * Logs command
+ * @param {string[]} services list of service names
+ * @param {object} options
+ * @param {string} options.cwd
+ * @param {boolean} [options.log]
+ * @param {?(string|string[])} [options.config]
+ * @param {?object} [options.env]
+ *
+ * @return {object} std.out / std.err
+ */
+const logsMany = function (services, options) {
+  return execCompose('logs', (options.args || []).concat(services), options);
+};
+
+/**
+ * Logs command
+ * @param {string} service service name
+ * @param {object} options
+ * @param {string} options.cwd
+ * @param {boolean} [options.log]
+ * @param {?(string|string[])} [options.config]
+ * @param {?object} [options.env]
+ *
+ * @return {object} std.out / std.err
+ */
+const logsOne = function (service, options) {
+  return execCompose('logs', (options.args || []).concat([ service ]), options);
+};
+
+module.exports = { upAll, upMany, upOne, kill, down, stop, restartAll, restartMany, restartOne, rm, exec, run, buildAll, buildMany, buildOne, logsAll, logsMany, logsOne };

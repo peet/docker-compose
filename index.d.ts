@@ -15,6 +15,9 @@ declare module "docker-compose" {
     buildAll(options: IDockerComposeOptions): Promise<IDockerComposeResult>;
     buildMany(services: string[] ,options: IDockerComposeOptions): Promise<IDockerComposeResult>;
     buildOne(service: string, options: IDockerComposeOptions): Promise<IDockerComposeResult>;
+    logsAll(options: IDockerComposeOptions): Promise<IDockerComposeResult>;
+    logsMany(services: string[] ,options: IDockerComposeOptions): Promise<IDockerComposeResult>;
+    logsOne(service: string, options: IDockerComposeOptions): Promise<IDockerComposeResult>;
   }
 
   interface IDockerComposeOptions {
